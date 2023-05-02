@@ -1,6 +1,7 @@
 export interface Car{
     id:number,
     carnumber:string,
-    time:string
+    intime:string,
+    outtime:string
     occupied:boolean
 }
