@@ -29,6 +29,8 @@ change(){
 }
 out(idStat:number){
   let tt=(parseInt(this.update.outtime.split(":")[0])-parseInt(this.update.intime.split(":")[0]))+((parseInt(this.update.outtime.split(":")[1])-parseInt(this.update.intime.split(":")[1]))/60)
+  console.log(tt);
+  
   if(tt<0)
   {
     console.log(tt);
@@ -39,7 +41,7 @@ out(idStat:number){
   this.cdata[idStat]={id:idStat,carnumber:"",intime:"",outtime:"",occupied:false}
   this.occupied=this.cdata.filter(obj=>obj.occupied==true).length
   this.total=this.cdata.length-this.occupied
-  if(Math.round(tt)==1)
+  if(Math.round(tt)<=1)
   {
     this.price=20;
     console.log(this.price);

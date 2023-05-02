@@ -4,7 +4,7 @@
     <div class="row row-cols-6">
         <ng-container *ngFor="let item of cdata">
             <ng-container *ngIf="item.occupied==true ;else nobg">
-                <div class="col border p-2 text-center g-2 me-2 bg-success" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="find(item.id)">
+                <div class="col border p-2 text-center g-2 me-2 bg-success text-white" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="find(item.id)">
                     <h5>{{item.id+1}}</h5>
                <p class="p-2">
                    {{item.carnumber}}
@@ -40,16 +40,17 @@
             <div class="row">
                 <label for="cno" class="col-sm-2">Car no:</label>
                 <input type="text" name="carno" class="col-sm-8" id="carno" [(ngModel)]="update.carnumber" #cn="ngModel" required>
-                <small *ngIf="cn.invalid && (cn.touched || cn.dirty)">*enter carname</small>
+                <small *ngIf="cn.invalid && (cn.touched || cn.dirty)" class="danger">*enter carname</small>
             </div>
             <div class="row mt-3">
                 <label for="time" class="col-sm-2">In time</label>
                 <input type="time" class="col-sm-8" name="time" id="time" [(ngModel)]="update.intime" #time="ngModel" required>
-                <small *ngIf="time.invalid && (time.touched || time.dirty)">*enter in time time</small>
+                <small *ngIf="time.invalid && (time.touched || time.dirty)" class="danger">*enter in time time</small>
             </div>
             <div class="row mt-3">
                 <label for="time" class="col-sm-2">Out time</label>
-                <input type="time" class="col-sm-8" name="time" id="time"  [(ngModel)]="update.outtime" [disabled]="!update.occupied" >
+                <input type="time" class="col-sm-8" name="time" id="time"  [(ngModel)]="update.outtime" [disabled]="!update.occupied" required #ot="ngModel">
+                <small *ngIf="ot.invalid && (ot.touched || ot.dirty)" class="danger">*enter in time time</small>
             </div>
         </div>
         <div class="modal-footer">
