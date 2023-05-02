@@ -1,63 +1,135 @@
-<p class="text-center">Total Space: {{total}}</p>
-<p class="text-center">Occupied Space: {{occupied}}</p>
+<p class="text-center">Total Space: {{ total }}</p>
+<p class="text-center">Occupied Space: {{ occupied }}</p>
 <div class="container p-2 d-flex justify-content-center">
-    <div class="row row-cols-6">
-        <ng-container *ngFor="let item of cdata">
-            <ng-container *ngIf="item.occupied==true ;else nobg">
-                <div class="col border p-2 text-center g-2 me-2 bg-success text-white" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="find(item.id)">
-                    <h5>{{item.id+1}}</h5>
-               <p class="p-2">
-                   {{item.carnumber}}
-               </p>
-               <p>
-                {{item.intime}}
-               </p> 
-            </div>
-            </ng-container>
-          <ng-template #nobg>
-            <div class="col border p-2 text-center g-2 me-2 bg-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="find(item.id)">
-                <h5>{{item.id+1}}</h5>
-           <p class="p-2">
-               {{item.carnumber}}
-           </p>
-           <p>
-            {{item.intime}}
-           </p> 
+  <div class="row row-cols-6">
+    <ng-container *ngFor="let item of cdata">
+      <ng-container *ngIf="item.occupied == true; else nobg">
+        <div
+          class="col border p-2 text-center g-2 me-2 bg-success text-white"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+          (click)="find(item.id)"
+        >
+          <h5>{{ item.id + 1 }}</h5>
+          <p class="p-2">
+            {{ item.carnumber }}
+          </p>
+          <p>
+            {{ item.intime }}
+          </p>
         </div>
-          </ng-template>
+      </ng-container>
+      <ng-template #nobg>
+        <div
+          class="col border p-2 text-center g-2 me-2 bg-secondary"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+          (click)="find(item.id)"
+        >
+          <h5>{{ item.id + 1 }}</h5>
+          <p class="p-2">
+            {{ item.carnumber }}
+          </p>
+          <p>
+            {{ item.intime }}
+          </p>
+        </div>
+      </ng-template>
     </ng-container>
+  </div>
 </div>
-</div>
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  data-bs-backdrop="static"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+            (click)="resetobj(update.id)"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <label for="cno" class="col-sm-2">Car no:</label>
+          <input
+            type="text"
+            name="carno"
+            class="col-sm-8"
+            id="carno"
+            [(ngModel)]="update.carnumber"
+            #cn="ngModel"
+            required
+          />
+          <small *ngIf="cn.invalid && (cn.touched || cn.dirty)" class="danger"
+            >*enter carname</small
+          >
         </div>
-        <div class="modal-body" >
-            <div class="row">
-                <label for="cno" class="col-sm-2">Car no:</label>
-                <input type="text" name="carno" class="col-sm-8" id="carno" [(ngModel)]="update.carnumber" #cn="ngModel" required>
-                <small *ngIf="cn.invalid && (cn.touched || cn.dirty)" class="danger">*enter carname</small>
-            </div>
-            <div class="row mt-3">
-                <label for="time" class="col-sm-2">In time</label>
-                <input type="time" class="col-sm-8" name="time" id="time" [(ngModel)]="update.intime" #time="ngModel" required>
-                <small *ngIf="time.invalid && (time.touched || time.dirty)" class="danger">*enter in time time</small>
-            </div>
-            <div class="row mt-3">
-                <label for="time" class="col-sm-2">Out time</label>
-                <input type="time" class="col-sm-8" name="time" id="time"  [(ngModel)]="update.outtime" [disabled]="!update.occupied" required #ot="ngModel">
-                <small *ngIf="ot.invalid && (ot.touched || ot.dirty)" class="danger">*enter in time time</small>
-            </div>
+        <div class="row mt-3">
+          <label for="time" class="col-sm-2">In time</label>
+          <input
+            type="time"
+            class="col-sm-8"
+            name="time"
+            id="time"
+            [(ngModel)]="update.intime"
+            #time="ngModel"
+            required
+          />
+          <small
+            *ngIf="time.invalid && (time.touched || time.dirty)"
+            class="danger"
+            >*enter in time time</small
+          >
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="change()" [disabled]="cn.invalid || time.invalid || update.occupied">In</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="out(update.id)">Out</button>
+        <div class="row mt-3">
+          <label for="time" class="col-sm-2">Out time</label>
+          <input
+            type="time"
+            class="col-sm-8"
+            name="time"
+            id="time"
+            [(ngModel)]="update.outtime"
+            [disabled]="!update.occupied"
+            required
+            #ot="ngModel"
+          />
+          <small *ngIf="ot.invalid && (ot.touched || ot.dirty)" class="danger"
+            >*enter in time time</small
+          >
         </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-warning"
+          data-bs-dismiss="modal"
+          (click)="change()"
+          [disabled]="cn.invalid || time.invalid || update.occupied"
+        >
+          In
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="out(update.id)"
+          [disabled]="!update.occupied || ot.invalid"
+        >
+          Out
+        </button>
       </div>
     </div>
   </div>
- <h1 class="text-center">payable amount:{{price}}</h1>
+</div>
+<h1 class="text-center">payable amount:{{ price }}</h1>
