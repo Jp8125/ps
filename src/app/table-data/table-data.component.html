@@ -1,5 +1,35 @@
-<table class="table">
-    <tr *ngFor="let item of cdata ;let i=index">
-        <td>{{item.id}}</td>
-    </tr>
-</table>
+<div class="container p-2">
+Total Space <p>{{total}}</p>
+    <div class="row row-cols-6">
+        <ng-container *ngFor="let item of cdata">
+            <div class="col border p-2 text-center g-2 me-2" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="find(item.id)">
+                <h5>{{item.id+1}}</h5>
+           <p class="p-2">
+               {{item.carnumber}}
+           </p>
+           <p>
+            {{item.time|date:'shortTime'}}
+           </p> 
+        </div>
+    </ng-container>
+</div>
+</div>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+         <input type="text" name="carno" id="carno" [(ngModel)]="update.carnumber">
+        <input type="datetime-local" name="time" id="time" [(ngModel)]="update.time">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="change()">In</button>
+          <button type="button" class="btn btn-primary">Out</button>
+        </div>
+      </div>
+    </div>
+  </div>
